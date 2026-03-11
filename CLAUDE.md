@@ -11,6 +11,16 @@
 * Every time I correct you, reflect on what you did wrong and come up with a plan to never make the same mistake again.
 * All code changes must have programmatic validation (tests). The specific test approach (unit, integration, E2E, etc.) is determined based on the work being done.
 
+## Parallel work
+
+When multiple Claude Code windows are working on the same repo simultaneously:
+
+* Never have two windows commit to the same branch in the same worktree. Each parallel stream must use its own git worktree (`git worktree add`).
+* When spawning Agent tools that write code, use `isolation: "worktree"` so the agent gets its own copy of the repo.
+* Read-only agents (Explore, research) do not need worktrees.
+* After all parallel streams finish, merge worktree branches into the feature branch and run the full test suite before continuing.
+* Clean up worktrees after merging (`git worktree remove`).
+
 ## Code design
 
 Follow the principles in @docs/code-design-guidelines.md when writing or modifying code.
