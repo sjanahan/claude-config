@@ -83,3 +83,7 @@ Side effects are inputs and outputs of a function that are not its parameters or
 
 - **Name tests descriptively** to communicate what behavior is being validated, not just which function is called.
 - **Keep test bodies small and focused.** Extract setup into well-named helpers.
+- **Test observable behavior, not implementation details.** Do not assert on SQL strings, internal method calls, or which stdlib functions were used. If the implementation changed but the behavior stayed the same, the test should still pass.
+- **Focus on high-value tests:** correct results for valid inputs, edge cases that have bitten you before, and failure modes that matter to users. Skip trivial inverse tests (if "failures show red" passes, "no failures means no red" adds nothing).
+- **Do not write tests that merely confirm the code was written as-is.** "SQL contains keyword X" or "uses connect not begin" break on refactors and catch nothing.
+- **One test per behavior.** If a test name includes "and", it is probably two tests -- but if both halves are trivial, it is probably zero tests.
